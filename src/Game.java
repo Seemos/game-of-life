@@ -49,8 +49,9 @@ public class Game {
 		for(int i = 0; i < height; i++) {
 			for(int j = 0; j < width; j++) {
 				int neighbours = countNeighbours(i, j);
-				if(neighbours == 3) replacement[i][j] = true;
-				else if(neighbours == 2 && cells[i][j]) replacement[i][j] = true;
+				if(neighbours == 3 || (neighbours == 2 && cells[i][j])) {
+					replacement[i][j] = true;
+				}
 			}
 		}
 		cells = replacement;
@@ -61,8 +62,8 @@ public class Game {
 		int count = 0;
 		for(int i = -1; i <= 1; i++) {
 			for(int j = -1; j <= 1; j++) {
-				int idxR = row+i < 0 ? height + (row+i) : (row+i)%height;
-				int idxC = col+j < 0 ? width + (col+j) : (col+j)%width;
+				int idxR = (row+height+i)%height;
+				int idxC = (col+width+j)%width;
 				if(cells[idxR][idxC]) count++;
 			}
 		}
