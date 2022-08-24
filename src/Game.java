@@ -28,7 +28,7 @@ public class Game {
 	}
 	
 	public void stop() {
-		cellUpdater.interrupt();
+		if(isRunning) cellUpdater.interrupt();
 		isRunning = false;
 	}
 	
@@ -71,7 +71,7 @@ public class Game {
 		return count;
 	}
 	
-	public boolean getState(int i, int j) {
+	public synchronized boolean getState(int i, int j) {
 		return cells[i][j];
 	}
 	
