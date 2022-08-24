@@ -63,18 +63,19 @@ public class StartingScreen extends JFrame{
 	}
 	
 	private void startNewGame() {
-		try {
+		
+		if(txtRows.getText().matches("-?\\d+") && txtCols.getText().matches("-?\\d+") && txtSize.getText().matches("-?\\d+")) {
 			int rows = Integer.parseInt(txtRows.getText());
 			int cols = Integer.parseInt(txtCols.getText());
-			int size = Integer.parseInt(txtSize.getText());	
+			int size = Integer.parseInt(txtSize.getText());
 			gui = new Gui(rows, cols, size);
 			game = new Game(cols, rows, gui);
 			gui.setGame(game);
 			gui.setScreen(this);
 			gui.setVisible(true);
 		}
-		catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(this, "Inputs must be numeric");
+		else {
+			JOptionPane.showMessageDialog(this, "Inputs must be integers");
 		}
 	}
 }
