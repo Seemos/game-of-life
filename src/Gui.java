@@ -16,10 +16,10 @@ public class Gui extends JFrame{
 	public Gui(int rows, int cols, int cellSize) {
 		
 		JPanel contentPane = new CellPanel(rows,cols,cellSize, this);
-		button = new JButton("next step");
+		button = new JButton("start/stop");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				game.iterate();
+				game.startStop();
 			}
 		});
 		
@@ -55,6 +55,7 @@ public class Gui extends JFrame{
 	@Override
 	public void hide() {
 		screen.setVisible(true);
+		game.stop();
 		super.hide();
 	}
 }

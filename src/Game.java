@@ -3,8 +3,10 @@ public class Game {
 	
 	int width;
 	int height;
+	boolean isRunning;
 	boolean[][] cells;
 	Gui g;
+	Thread cellUpdater;
 	
 	public Game(int width, int height, Gui g) {
 		this.g = g;
@@ -13,11 +15,21 @@ public class Game {
 		cells = new boolean[height][width];
 	}
 	
-	public void run(int iterations) {
-		for(int i = 0; i < iterations; i++) {
-			iterate();
-			printCells();
-		}
+	public void startStop() {
+		if(isRunning) stop();
+		else start();
+	}
+	
+	public void start() {
+		cellUpdater = new Thread(new CellUpder(this, 200));
+		cellUpdater.setDaemon(true);
+		cellUpdater.start();
+		isRunning = true;
+	}
+	
+	public void stop() {
+		cellUpdater.interrupt();
+		isRunning = false;
 	}
 	
 	public void printCells() {
